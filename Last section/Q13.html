@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form with Validation</title>
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h2>Sign Up Form</h2>
+    <form id="signupForm" onsubmit="return validateForm()">
+        <label for="fullName">Full Name:</label><br>
+        <input type="text" id="fullName" name="fullName" required><br>
+        <span id="fullNameError" class="error"></span><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <span id="emailError" class="error"></span><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <span id="passwordError" class="error"></span><br>
+
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+        <span id="confirmPasswordError" class="error"></span><br>
+
+        <input type="submit" value="Sign Up">
+    </form>
+
+    <script>
+        function validateForm() {
+            var fullName = document.getElementById('fullName').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            var fullNameError = document.getElementById('fullNameError');
+            var emailError = document.getElementById('emailError');
+            var passwordError = document.getElementById('passwordError');
+            var confirmPasswordError = document.getElementById('confirmPasswordError');
+
+            var valid = true;
+
+            // Validate full name
+            if (fullName.trim() === '') {
+                fullNameError.textContent = 'Full Name is required';
+                valid = false;
+            } else {
+                fullNameError.textContent = '';
+            }
+
+            // Validate email format
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Invalid email format';
+                valid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Validate password
+            if (password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters long';
+                valid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            // Validate confirm password
+            if (confirmPassword !== password) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                valid = false;
+            } else {
+                confirmPasswordError.textContent = '';
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>
